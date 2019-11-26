@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Simple FileWriter Example</title>
+        <script type="text/javascript" src="cordova.js"></script> <!-- cordova.js must be included. [IMPORTANT!!!] platforms\android\app\src\main\assets\www -->
+        <script type="text/javascript">
+            document.addEventListener("deviceReady", onDeviceReady, false);
+            function onDeviceReady() {
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+                    fileSystem.root.getFile("test.txt", { create:true, exclusive: false }, function(fileEntry) {
+                        writeFile(fileEntry, "abcdefghi");
+                    }, fail);
+                }, fail);
+            }
+
+            function writeFile(fileEntry, dataObj) {
+                fileEntry.createWriter(function(fileWriter) {
+                    fileWriter.write(dataObj);
+                });
+                alert("done");
+            }
+
+            function fail(error) {
+                alert(error.code);
+            }
+
+
+        </script>
+    </head>
+    <body>
+        <h1>Simple FileWriter Example</h1>
+    </body>
+</html>
